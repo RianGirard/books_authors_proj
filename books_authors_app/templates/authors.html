@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Books & Authors</title>
+        <title>Authors</title>
         {% load static %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -12,14 +12,17 @@
     <body>
         <div id="container">
             <div id="left">
-                <h1>Add a Book</h1>
-                <form method="POST" action="add_book">
+                <h1>Add an Author</h1>
+                <form method="POST" action="add_author">
                     {% csrf_token %}
                     <div class="form-row short">
-                        <input type="text" class="form-control" placeholder="Title" name="title" maxlength="255" required>
+                        <input type="text" class="form-control" placeholder="First Name" name="f_name" maxlength="255" required>
                     </div>
                     <div class="form-row short">
-                        <input type="text" class="form-control" placeholder="Description" name="desc" maxlength="255" required>
+                        <input type="text" class="form-control" placeholder="Last Name" name="l_name" maxlength="255" required>
+                    </div>
+                    <div class="form-row short">
+                        <input type="text" class="form-control" placeholder="Notes" name="notes" maxlength="255" required>
                     </div>
                     <div class="form-row short">
                         <input class="btn btn-primary form-row" type="submit" value="Add">
@@ -31,18 +34,18 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Title</th>
+                            <th scope="col">Name</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>            
-                    {% for book in all_books %}
-                        <form method="POST" action="books/{{book.id}}">     <!-- form action defines the url and in this case including the book.id -->
+                    {% for author in all_authors %}
+                        <form method="POST" action="authors/{{author.id}}">     <!-- form action defines the url and in this case including the author.id -->
                             {% csrf_token %}
-                            <input type="hidden" name="book_id" value="{{book.id}}">     <!-- "hidden" input sets the value of book.id -->
+                            <input type="hidden" name="author_id" value="{{author.id}}">     <!-- "hidden" input sets the value of author.id -->
                             <tr>
-                                <th scope="row">{{book.id}}</th>
-                                <td>{{book.title}}</td>
+                                <th scope="row">{{author.id}}</th>
+                                <td>{{author.first_name}} {{author.last_name}}</td>
                                 <td><input type="submit" class="button" value="View"></td>      <!-- CSS is used on .button to give appearance of link, not button -->
                             </tr>
                         </form>
